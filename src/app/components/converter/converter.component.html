@@ -1,0 +1,55 @@
+<div>
+  <mat-card class="container-card" appearance="outlined">
+
+    <div class="inputs-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter Number</mat-label>
+        <input matInput type="number" min="0" step="0.1" [(ngModel)]="amount" placeholder="Enter a number" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>From</mat-label>
+        <mat-select [(ngModel)]="fromCurrency">
+          <mat-option *ngFor="let currency of currDisplay" [value]="currency.key">
+            {{ currency.key }} - {{ currency.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>To</mat-label>
+        <mat-select [(ngModel)]="toCurrency">
+          <mat-option *ngFor="let currency of currDisplay" [value]="currency.key">
+            {{ currency.key }} - {{ currency.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button mat-flat-button style="background-color: rgb(84, 214, 134); color: white; width: 80%; margin: auto;"
+      (click)="convert()">
+      Convert
+    </button>
+
+    <div *ngIf="result">
+      <mat-card class="result-card">
+        <mat-card-header>
+          <mat-card-title>
+            <h3>Result</h3>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{ resultAmount }} {{ resultFromCurr }} = {{ result }}
+            {{ resultToCurr }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card>
+
+  <div style="margin: 10px 70px 10px 70px">
+    <canvasjs-chart *ngIf="chartOptions" [options]="chartOptions" [styles]="{ width: '100%', height: '360px' }"
+      (chartInstance)="chart = $event"></canvasjs-chart>
+  </div>
+</div>
